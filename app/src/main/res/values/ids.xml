@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="idExoPlayerVIew" type="id" />
+    <item name="exo_repeat_toggle" type="id" />
+    <item name="exo_shuffle" type="id" />
+    <item name="exo_vr" type="id" />
+</resources>
