@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             ImageButton forwrd_btn;
             int pos = 0;
 
+
     // creating a variable for exoplayer
     SimpleExoPlayer exoPlayer;
 
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     static final String[] items = {
             "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4",
             "https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4"
+//            "https://jiostreamingdash.akamaized.net/content/entry/wvdata/24/67/d889ff00236a11ebb25a6fbdddcb3e99_voot_mobile_premium_1626940058375.mpd",
+//            "https://prod.media.jio.com/wvproxy?videoid=2000358752&vootid=998096&iat=1635422513&voottoken=BToken_178b5cda9533e08b3e9414e6c7fdba21f1a77c5c767593fff5634bcb13c95a5109c6ae9432bba62f6256dc14fa37d70057b9756095ec30507659edaacd4efff0"
+
     };
 //    String videoURL = "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4";
    String videoURL1 = "https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
@@ -62,17 +66,42 @@ public class MainActivity extends AppCompatActivity {
                    pos =1;
                }else{
                    pos =0;
+                   exoPlayer.stop();
                 }
                startPlayer(items[pos]);
+//               exoPlayer.stop();
             }
         });
 
         //hide action bar
         getSupportActionBar().hide();
         startPlayer(items[pos]);
+//        exoPlayer.stop();
     }
 
-    private void startPlayer(String videoUrl){
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (exoPlayer == null) {
+            exoPlayerView.setPlayer(exoPlayer);
+            exoPlayer.setPlayWhenReady(true);
+        }
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        exoPlayer.release();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        exoPlayer.release();
+    }
+
+    public void startPlayer(String videoUrl){
         try {
 
             // bandwisthmeter is used for
